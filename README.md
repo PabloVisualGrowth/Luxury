@@ -189,4 +189,4 @@ Catherine Sonolet - catherine.sonolet@sustainable-luxury.info
 
 ---
 
-**¡Proyecto reestructurado y listo para deployment! 🎉**
+**¡Proyecto reestructurado y listo para deployment! 🎉 (v1.0.1)**
