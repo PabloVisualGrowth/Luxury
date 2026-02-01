@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Sustainable Luxury - Web Application
 
 Una plataforma educativa de lujo sostenible construida con React, Vite y Tailwind CSS.
@@ -191,6 +190,3 @@ Catherine Sonolet - catherine.sonolet@sustainable-luxury.info
 ---
 
 **¡Proyecto reestructurado y listo para deployment! 🎉**
-=======
-# Luxury
->>>>>>> 985b8ccea093af3b58a38ffbd96b7662541c1ecb
