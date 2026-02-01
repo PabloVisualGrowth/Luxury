@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './layouts/Layout';
 
-// Pages
+// Luxury Web App v1.0.2 - Clean build
 import Home from './pages/Home';
 import About from './pages/About';
 import Blog from './pages/Blog';
