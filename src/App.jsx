@@ -7,7 +7,6 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
-import BlogPost1 from './pages/BlogPost1';
 import Contact from './pages/Contact';
 import Programs from './pages/Programs';
 import Resources from './pages/Resources';
@@ -26,7 +25,6 @@ export function createPageUrl(pageName) {
         'About': '/about',
         'Blog': '/blog',
         'BlogPost': '/blog/:id',
-        'BlogPost1': '/blog/1',
         'Contact': '/contact',
         'Programs': '/programs',
         'Resources': '/resources',
@@ -49,7 +47,6 @@ function App() {
                 <Route path="/about" element={<Layout currentPageName="About"><About /></Layout>} />
                 <Route path="/blog" element={<Layout currentPageName="Blog"><Blog /></Layout>} />
                 <Route path="/blog/:id" element={<Layout currentPageName="BlogPost"><BlogPost /></Layout>} />
-                <Route path="/blog/1" element={<Layout currentPageName="BlogPost1"><BlogPost1 /></Layout>} />
                 <Route path="/contact" element={<Layout currentPageName="Contact"><Contact /></Layout>} />
                 <Route path="/programs" element={<Layout currentPageName="Programs"><Programs /></Layout>} />
                 <Route path="/resources" element={<Layout currentPageName="Resources"><Resources /></Layout>} />

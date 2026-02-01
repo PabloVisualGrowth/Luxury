@@ -1,36 +1,24 @@
-{
-  "name": "Module",
-  "type": "object",
-  "properties": {
-    "course_id": {
-      "type": "string",
-      "description": "Reference to parent course"
-    },
-    "title": {
-      "type": "string",
-      "description": "Module title"
-    },
-    "description": {
-      "type": "string",
-      "description": "Module description"
-    },
-    "order": {
-      "type": "number",
-      "description": "Order within course"
-    },
-    "duration": {
-      "type": "string",
-      "description": "Estimated duration"
-    },
-    "is_locked": {
-      "type": "boolean",
-      "default": false,
-      "description": "Whether module requires completion of previous"
-    }
-  },
-  "required": [
-    "course_id",
-    "title",
-    "order"
-  ]
+import React from "react";
+import { Link, useParams } from "react-router-dom";
+import { createPageUrl } from "@/utils";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+
+export default function Module() {
+    const { id } = useParams();
+
+    return (
+        <div className="bg-[#FDFBF9] min-h-screen pt-20">
+            <div className="max-w-4xl mx-auto px-6 py-32 text-center">
+                <h1 className="text-3xl font-bold text-[#5C3D2E] mb-4">Module Page</h1>
+                <p className="text-[#5C3D2E]/70 mb-8">Module details for ID: {id} are coming soon.</p>
+                <Link to={createPageUrl("Dashboard")}>
+                    <Button className="bg-[#C4714A] hover:bg-[#b36540]">
+                        <ArrowLeft className="mr-2 w-4 h-4" />
+                        Back to Dashboard
+                    </Button>
+                </Link>
+            </div>
+        </div>
+    );
 }

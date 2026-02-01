@@ -1,65 +1,24 @@
-{
-  "name": "Course",
-  "type": "object",
-  "properties": {
-    "title": {
-      "type": "string",
-      "description": "Course title"
-    },
-    "slug": {
-      "type": "string",
-      "description": "URL-friendly identifier"
-    },
-    "description": {
-      "type": "string",
-      "description": "Short description"
-    },
-    "long_description": {
-      "type": "string",
-      "description": "Detailed description"
-    },
-    "image_url": {
-      "type": "string",
-      "description": "Course cover image"
-    },
-    "duration": {
-      "type": "string",
-      "description": "Estimated duration"
-    },
-    "level": {
-      "type": "string",
-      "enum": [
-        "beginner",
-        "intermediate",
-        "advanced"
-      ],
-      "description": "Difficulty level"
-    },
-    "category": {
-      "type": "string",
-      "enum": [
-        "essence",
-        "challenges",
-        "experience"
-      ],
-      "description": "Pathway category"
-    },
-    "is_published": {
-      "type": "boolean",
-      "default": true
-    },
-    "is_demo": {
-      "type": "boolean",
-      "default": false,
-      "description": "Demo course available without full enrollment"
-    },
-    "order": {
-      "type": "number",
-      "description": "Display order"
-    }
-  },
-  "required": [
-    "title",
-    "slug"
-  ]
+import React from "react";
+import { Link, useParams } from "react-router-dom";
+import { createPageUrl } from "@/utils";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+
+export default function Course() {
+    const { id } = useParams();
+
+    return (
+        <div className="bg-[#FDFBF9] min-h-screen pt-20">
+            <div className="max-w-4xl mx-auto px-6 py-32 text-center">
+                <h1 className="text-3xl font-bold text-[#5C3D2E] mb-4">Course Page</h1>
+                <p className="text-[#5C3D2E]/70 mb-8">Full course content for ID: {id} is coming soon.</p>
+                <Link to={createPageUrl("Programs")}>
+                    <Button className="bg-[#C4714A] hover:bg-[#b36540]">
+                        <ArrowLeft className="mr-2 w-4 h-4" />
+                        Back to Programs
+                    </Button>
+                </Link>
+            </div>
+        </div>
+    );
 }
