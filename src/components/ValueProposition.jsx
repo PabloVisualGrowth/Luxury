@@ -7,25 +7,25 @@ const values = [
     icon: Target,
     title: "Tailor-made",
     description: "We start with your reality, your CSR strategy and your brand DNA.",
-    color: "bg-[#0F3D3E]"
+    color: "bg-brand-pine"
   },
   {
     icon: Sparkles,
     title: "Engaging",
     description: "Interactive, creative formats that inspire action, not just awareness.",
-    color: "bg-[#C4714A]"
+    color: "bg-brand-brick"
   },
   {
     icon: Award,
     title: "Expert",
     description: "A unique blend of CSR knowledge and luxury sector expertise.",
-    color: "bg-[#5C3D2E]"
+    color: "bg-brand-brown"
   }
 ];
 
 export default function ValueProposition() {
   return (
-    <section className="py-24 lg:py-32 bg-[#F5EBE6]">
+    <section className="py-24 lg:py-32 bg-[#FDFBF9]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-3xl mb-20">
@@ -33,7 +33,7 @@ export default function ValueProposition() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-[#C4714A] text-sm font-medium tracking-wider uppercase"
+            className="text-brand-brick text-sm font-medium tracking-wider uppercase"
           >
             Our Way of Doing Things
           </motion.span>
@@ -42,7 +42,7 @@ export default function ValueProposition() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold text-[#5C3D2E] mt-4 mb-6"
+            className="text-4xl md:text-5xl font-bold text-brand-brown mt-4 mb-6"
           >
             Built on Three Pillars
           </motion.h2>
@@ -51,13 +51,14 @@ export default function ValueProposition() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-[#5C3D2E]/70 text-lg leading-relaxed"
+            className="text-brand-brown/70 text-lg leading-relaxed"
           >
-            We partner with brands, organisations, and professionals across the luxury 
-            sector to transform sustainability into tangible value, credible actions, 
+            We partner with brands, organisations, and professionals across the luxury
+            sector to transform sustainability into tangible value, credible actions,
             a trusted reputation, and a competitive advantage.
           </motion.p>
         </div>
+
 
         {/* Values Grid */}
         <div className="grid md:grid-cols-3 gap-8">

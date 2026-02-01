@@ -22,10 +22,10 @@ const impacts = [
 
 export default function ImpactSection() {
   return (
-    <section className="py-24 lg:py-32 bg-[#C4714A] relative overflow-hidden">
+    <section className="py-24 lg:py-32 bg-brand-brick relative overflow-hidden">
       {/* Decorative elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#0F3D3E]/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#E8C4BC]/20 rounded-full blur-3xl" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-brand-pine/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-rose/20 rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -35,7 +35,7 @@ export default function ImpactSection() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="text-[#E8C4BC] text-sm font-medium tracking-wider uppercase"
+              className="text-brand-rose text-sm font-medium tracking-wider uppercase"
             >
               Our Impact
             </motion.span>
@@ -55,9 +55,9 @@ export default function ImpactSection() {
               transition={{ delay: 0.2 }}
               className="text-white/80 text-lg leading-relaxed"
             >
-              Sustainable Luxury embodies this new era, and leads the way. 
-              We turn sustainability into a force that elevates luxury, making it 
-              tangible, human, and inspiring for teams, so that every action 
+              Sustainable Luxury embodies this new era, and leads the way.
+              We turn sustainability into a force that elevates luxury, making it
+              tangible, human, and inspiring for teams, so that every action
               becomes a step beyond excellence.
             </motion.p>
           </div>
@@ -74,8 +74,8 @@ export default function ImpactSection() {
                 className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-colors"
               >
                 <div className="flex items-start gap-5">
-                  <div className="w-12 h-12 rounded-xl bg-[#0F3D3E] flex items-center justify-center flex-shrink-0">
-                    <impact.icon className="w-6 h-6 text-[#E8C4BC]" />
+                  <div className="w-12 h-12 rounded-xl bg-brand-pine flex items-center justify-center flex-shrink-0">
+                    <impact.icon className="w-6 h-6 text-brand-rose" />
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-white mb-2">
@@ -89,6 +89,7 @@ export default function ImpactSection() {
               </motion.div>
             ))}
           </div>
+
         </div>
       </div>
     </section>

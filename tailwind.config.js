@@ -13,6 +13,13 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        brand: {
+          rose: "hsl(var(--brand-rose))",
+          brick: "hsl(var(--brand-brick))",
+          brown: "hsl(var(--brand-brown))",
+          chocolate: "hsl(var(--brand-chocolate))",
+          pine: "hsl(var(--brand-pine))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -41,6 +48,9 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      fontFamily: {
+        sans: ["Work Sans", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",

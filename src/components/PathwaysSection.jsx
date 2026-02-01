@@ -40,7 +40,7 @@ export default function PathwaysSection() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="text-[#C4714A] text-sm font-medium tracking-wider uppercase"
+              className="text-brand-brick text-sm font-medium tracking-wider uppercase"
             >
               Our Pathways
             </motion.span>
@@ -49,7 +49,7 @@ export default function PathwaysSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl font-bold text-[#5C3D2E] mt-4"
+              className="text-4xl md:text-5xl font-bold text-brand-brown mt-4"
             >
               Learning Journeys
             </motion.h2>
@@ -57,7 +57,7 @@ export default function PathwaysSection() {
           <Link to={createPageUrl("Programs")}>
             <Button
               variant="outline"
-              className="border-[#C4714A] text-[#C4714A] hover:bg-[#C4714A] hover:text-white"
+              className="border-brand-brick text-brand-brick hover:bg-brand-brick hover:text-white"
             >
               View All Programs
               <ArrowRight className="ml-2 w-4 h-4" />
@@ -75,11 +75,11 @@ export default function PathwaysSection() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.15 }}
             >
-              <Link 
+              <Link
                 to={`${createPageUrl("Programs")}?category=${pathway.category}`}
                 className="group block"
               >
-                <div className="grid lg:grid-cols-2 gap-8 items-center bg-[#FDFBF9] rounded-3xl overflow-hidden border border-[#E8C4BC]/30 hover:border-[#C4714A]/50 transition-all duration-500 hover:shadow-xl">
+                <div className="grid lg:grid-cols-2 gap-8 items-center bg-[#FDFBF9] rounded-3xl overflow-hidden border border-brand-rose/30 hover:border-brand-brick/50 transition-all duration-500 hover:shadow-xl">
                   {/* Image */}
                   <div className={`relative h-64 lg:h-80 overflow-hidden ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
                     <img
@@ -87,7 +87,7 @@ export default function PathwaysSection() {
                       alt={pathway.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F3D3E]/60 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-pine/60 to-transparent" />
                     <span className="absolute bottom-6 left-6 text-6xl font-bold text-white/30">
                       {pathway.number}
                     </span>
@@ -95,18 +95,19 @@ export default function PathwaysSection() {
 
                   {/* Content */}
                   <div className="p-8 lg:p-12">
-                    <h3 className="text-2xl md:text-3xl font-bold text-[#5C3D2E] mb-4 group-hover:text-[#C4714A] transition-colors">
+                    <h3 className="text-2xl md:text-3xl font-bold text-brand-brown mb-4 group-hover:text-brand-brick transition-colors">
                       {pathway.title}
                     </h3>
-                    <p className="text-[#5C3D2E]/70 leading-relaxed mb-6">
+                    <p className="text-brand-brown/70 leading-relaxed mb-6">
                       {pathway.description}
                     </p>
-                    <span className="inline-flex items-center text-[#C4714A] font-medium group-hover:gap-3 transition-all">
+                    <span className="inline-flex items-center text-brand-brick font-medium group-hover:gap-3 transition-all">
                       Explore Pathway
                       <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
                     </span>
                   </div>
                 </div>
+
               </Link>
             </motion.div>
           ))}

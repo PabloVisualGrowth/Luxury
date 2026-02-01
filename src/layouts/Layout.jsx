@@ -56,36 +56,11 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <div className="min-h-screen bg-[#FDFBF9]">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
-
-        :root {
-          --pine-green: #00432d;
-          --brick: #c45d32;
-          --rose: #deb8bc;
-          --brown: #73331a;
-          --chocolate: #3f2212;
-          --light-cream: #FDFBF9;
-        }
-
-        body {
-          font-family: 'Work Sans', sans-serif;
-        }
-
-        .brand-gradient {
-          background: linear-gradient(135deg, var(--pine-green) 0%, #005c3e 100%);
-        }
-
-        .brick-gradient {
-          background: linear-gradient(135deg, var(--brick) 0%, #d87050 100%);
-        }
-      `}</style>
-
       {/* Navigation */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isTransparent
-            ? "bg-transparent"
-            : "bg-white/95 backdrop-blur-md shadow-sm"
+          ? "bg-transparent"
+          : "bg-white/95 backdrop-blur-md shadow-sm"
           }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -98,7 +73,6 @@ export default function Layout({ children, currentPageName }) {
                 className="h-10 md:h-12"
               />
             </Link>
-
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
               {navItems.map((item) => (
@@ -106,9 +80,9 @@ export default function Layout({ children, currentPageName }) {
                   key={item.page}
                   to={createPageUrl(item.page)}
                   className={`text-sm font-medium tracking-wide transition-colors duration-300 ${isTransparent
-                      ? "text-white hover:text-[#deb8bc]"
-                      : "text-[#73331a] hover:text-[#c45d32]"
-                    } ${currentPageName === item.page ? (isTransparent ? "text-[#deb8bc]" : "text-[#c45d32]") : ""}`}
+                    ? "text-white hover:text-brand-rose"
+                    : "text-brand-brown hover:text-brand-brick"
+                    } ${currentPageName === item.page ? (isTransparent ? "text-brand-rose" : "text-brand-brick") : ""}`}
                 >
                   {item.label}
                 </Link>
@@ -122,7 +96,7 @@ export default function Layout({ children, currentPageName }) {
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="ghost"
-                      className={`flex items-center gap-2 ${isTransparent ? "text-white hover:bg-white/10" : "text-[#73331a] hover:bg-[#deb8bc]/30"
+                      className={`flex items-center gap-2 ${isTransparent ? "text-white hover:bg-white/10" : "text-brand-brown hover:bg-brand-rose/30"
                         }`}
                     >
                       <User className="w-4 h-4" />
@@ -162,7 +136,7 @@ export default function Layout({ children, currentPageName }) {
                   </Button>
                   <Button
                     onClick={() => base44.auth.redirectToLogin()}
-                    className="bg-[#c45d32] hover:bg-[#b35028] text-white text-sm px-6"
+                    className="bg-brand-brick hover:bg-brand-brick/90 text-white text-sm px-6"
                   >
                     Get Started
                   </Button>
@@ -245,7 +219,7 @@ export default function Layout({ children, currentPageName }) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#00432d] text-white">
+      <footer className="bg-brand-pine text-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {/* Brand */}
@@ -255,7 +229,7 @@ export default function Layout({ children, currentPageName }) {
                 alt="Sustainable Luxury"
                 className="h-10 mb-6 brightness-0 invert"
               />
-              <p className="text-[#deb8bc]/80 text-sm leading-relaxed max-w-md">
+              <p className="text-brand-rose/80 text-sm leading-relaxed max-w-md">
                 We believe the luxury of tomorrow will be defined not only by rarity,
                 craftsmanship and excellence, but also by purpose, responsibility
                 and the ability to create lasting, meaningful value.
@@ -264,7 +238,7 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-[#deb8bc] font-semibold mb-6 text-sm tracking-wider uppercase">
+              <h4 className="text-brand-rose font-semibold mb-6 text-sm tracking-wider uppercase">
                 Quick Links
               </h4>
               <ul className="space-y-3">
@@ -272,7 +246,7 @@ export default function Layout({ children, currentPageName }) {
                   <li key={item.page}>
                     <Link
                       to={createPageUrl(item.page)}
-                      className="text-white/70 hover:text-[#deb8bc] text-sm transition-colors"
+                      className="text-white/70 hover:text-brand-rose text-sm transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -283,7 +257,7 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Contact */}
             <div>
-              <h4 className="text-[#deb8bc] font-semibold mb-6 text-sm tracking-wider uppercase">
+              <h4 className="text-brand-rose font-semibold mb-6 text-sm tracking-wider uppercase">
                 Contact
               </h4>
               <div className="space-y-3 text-sm text-white/70">
@@ -291,7 +265,7 @@ export default function Layout({ children, currentPageName }) {
                 <p>Training Consultant</p>
                 <a
                   href="mailto:catherine.sonolet@sustainable-luxury.info"
-                  className="block hover:text-[#deb8bc] transition-colors"
+                  className="block hover:text-brand-rose transition-colors text-white/70"
                 >
                   catherine.sonolet@sustainable-luxury.info
                 </a>
@@ -299,7 +273,7 @@ export default function Layout({ children, currentPageName }) {
                   href="https://www.sustainable-luxury.info"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block hover:text-[#deb8bc] transition-colors"
+                  className="block hover:text-brand-rose transition-colors text-white/70"
                 >
                   www.sustainable-luxury.info
                 </a>
@@ -311,7 +285,7 @@ export default function Layout({ children, currentPageName }) {
             <p className="text-white/50 text-xs">
               © {new Date().getFullYear()} Sustainable Luxury. All rights reserved.
             </p>
-            <p className="text-[#deb8bc] text-xs tracking-wider">
+            <p className="text-brand-rose text-xs tracking-wider">
               LEADING BEYOND EXCELLENCE
             </p>
           </div>
