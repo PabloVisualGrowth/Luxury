@@ -68,3 +68,20 @@ export const mockUserProgress = [
     lastAccessed: "2024-02-01T12:00:00Z"
   }
 ];
+
+export const mockUsers = [
+  {
+    id: "u1",
+    email: "pablo@visualgrowth.info",
+    password: "password123",
+    full_name: "Pablo Admin",
+    role: "Admin"
+  },
+  {
+    id: "u2",
+    email: "catherine@sustainable-luxury.com",
+    password: "luxury2024",
+    full_name: "Catherine Sonolet",
+    role: "Training Consultant"
+  }
+];

@@ -128,17 +128,17 @@ export default function Layout({ children, currentPageName }) {
                 <>
                   <Button
                     variant="ghost"
-                    onClick={() => base44.auth.redirectToLogin()}
+                    asChild
                     className={`text-sm ${isTransparent ? "text-white hover:bg-white/10" : "text-[#73331a] hover:bg-[#deb8bc]/30"
                       }`}
                   >
-                    Sign In
+                    <Link to={createPageUrl("Login")}>Sign In</Link>
                   </Button>
                   <Button
-                    onClick={() => base44.auth.redirectToLogin()}
+                    asChild
                     className="bg-brand-brick hover:bg-brand-brick/90 text-white text-sm px-6"
                   >
-                    Get Started
+                    <Link to={createPageUrl("Login")}>Get Started</Link>
                   </Button>
                 </>
               )}
@@ -184,7 +184,10 @@ export default function Layout({ children, currentPageName }) {
                       My Learning
                     </Link>
                     <button
-                      onClick={handleLogout}
+                      onClick={() => {
+                        handleLogout();
+                        setMobileMenuOpen(false);
+                      }}
                       className="block w-full text-left text-sm font-medium text-[#c45d32] py-2"
                     >
                       Sign Out
@@ -194,16 +197,16 @@ export default function Layout({ children, currentPageName }) {
                   <>
                     <Button
                       variant="outline"
-                      onClick={() => base44.auth.redirectToLogin()}
+                      asChild
                       className="w-full border-[#c45d32] text-[#c45d32]"
                     >
-                      Sign In
+                      <Link to={createPageUrl("Login")} onClick={() => setMobileMenuOpen(false)}>Sign In</Link>
                     </Button>
                     <Button
-                      onClick={() => base44.auth.redirectToLogin()}
+                      asChild
                       className="w-full bg-[#c45d32] hover:bg-[#b35028] text-white"
                     >
-                      Get Started
+                      <Link to={createPageUrl("Login")} onClick={() => setMobileMenuOpen(false)}>Get Started</Link>
                     </Button>
                   </>
                 )}

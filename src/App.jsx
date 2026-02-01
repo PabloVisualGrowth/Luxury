@@ -18,6 +18,26 @@ import CourseDemo from './pages/CourseDemo';
 import Lesson from './pages/Lesson';
 import Module from './pages/Module';
 
+import Login from './pages/Login';
+import { useQuery } from '@tanstack/react-query';
+import { mockClient as base44 } from '@/api/mockClient';
+
+// Protected Route Component
+const ProtectedRoute = ({ children }) => {
+    const { data: isAuthenticated, isLoading } = useQuery({
+        queryKey: ['authStatus'],
+        queryFn: () => base44.auth.isAuthenticated(),
+    });
+
+    if (isLoading) return null; // Or a loading spinner
+
+    if (!isAuthenticated) {
+        return <Navigate to="/login" replace />;
+    }
+
+    return children;
+};
+
 // Utility function to create page URLs
 export function createPageUrl(pageName) {
     const pageRoutes = {
@@ -35,6 +55,7 @@ export function createPageUrl(pageName) {
         'CourseDemo': '/course/demo',
         'Lesson': '/lesson/:id',
         'Module': '/module/:id',
+        'Login': '/login',
     };
     return pageRoutes[pageName] || '/';
 }
@@ -49,14 +70,18 @@ function App() {
                 <Route path="/blog/:id" element={<Layout currentPageName="BlogPost"><BlogPost /></Layout>} />
                 <Route path="/contact" element={<Layout currentPageName="Contact"><Contact /></Layout>} />
                 <Route path="/programs" element={<Layout currentPageName="Programs"><Programs /></Layout>} />
-                <Route path="/resources" element={<Layout currentPageName="Resources"><Resources /></Layout>} />
-                <Route path="/resources/:id" element={<Layout currentPageName="Resource"><Resource /></Layout>} />
-                <Route path="/dashboard" element={<Layout currentPageName="Dashboard"><Dashboard /></Layout>} />
-                <Route path="/progress" element={<Layout currentPageName="UserProgress"><UserProgress /></Layout>} />
-                <Route path="/course/:id" element={<Layout currentPageName="Course"><Course /></Layout>} />
-                <Route path="/course/demo" element={<Layout currentPageName="CourseDemo"><CourseDemo /></Layout>} />
-                <Route path="/lesson/:id" element={<Layout currentPageName="Lesson"><Lesson /></Layout>} />
-                <Route path="/module/:id" element={<Layout currentPageName="Module"><Module /></Layout>} />
+                <Route path="/login" element={<Login />} />
+
+                {/* Protected Routes */}
+                <Route path="/resources" element={<ProtectedRoute><Layout currentPageName="Resources"><Resources /></Layout></ProtectedRoute>} />
+                <Route path="/resources/:id" element={<ProtectedRoute><Layout currentPageName="Resource"><Resource /></Layout></ProtectedRoute>} />
+                <Route path="/dashboard" element={<ProtectedRoute><Layout currentPageName="Dashboard"><Dashboard /></Layout></ProtectedRoute>} />
+                <Route path="/progress" element={<ProtectedRoute><Layout currentPageName="UserProgress"><UserProgress /></Layout></ProtectedRoute>} />
+                <Route path="/course/:id" element={<ProtectedRoute><Layout currentPageName="Course"><Course /></Layout></ProtectedRoute>} />
+                <Route path="/course/demo" element={<ProtectedRoute><Layout currentPageName="CourseDemo"><CourseDemo /></Layout></ProtectedRoute>} />
+                <Route path="/lesson/:id" element={<ProtectedRoute><Layout currentPageName="Lesson"><Lesson /></Layout></ProtectedRoute>} />
+                <Route path="/module/:id" element={<ProtectedRoute><Layout currentPageName="Module"><Module /></Layout></ProtectedRoute>} />
+
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </Router>

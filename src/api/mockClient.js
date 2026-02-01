@@ -1,4 +1,4 @@
-import { mockBlogPosts, mockCourses, mockResources, mockUserProgress } from '../data/mockData';
+import { mockBlogPosts, mockCourses, mockResources, mockUserProgress, mockUsers } from '../data/mockData';
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -47,11 +47,17 @@ export const mockClient = {
     UserProgress: {
       filter: async () => {
         await delay(300);
-        return getStorageItem('userProgress', mockUserProgress);
+        const user = JSON.parse(localStorage.getItem('mockUser') || 'null');
+        if (!user) return [];
+        return getStorageItem(`userProgress_${user.id}`, mockUserProgress);
       },
       update: async (courseId, lessonId) => {
         await delay(300);
-        const progress = getStorageItem('userProgress', mockUserProgress);
+        const user = JSON.parse(localStorage.getItem('mockUser') || 'null');
+        if (!user) throw new Error("Unauthorized");
+
+        const storageKey = `userProgress_${user.id}`;
+        const progress = getStorageItem(storageKey, mockUserProgress);
         const courseIndex = progress.findIndex(p => p.courseId === courseId);
 
         if (courseIndex > -1) {
@@ -67,7 +73,7 @@ export const mockClient = {
           });
         }
 
-        setStorageItem('userProgress', progress);
+        setStorageItem(storageKey, progress);
         return progress;
       }
     }
@@ -75,18 +81,19 @@ export const mockClient = {
   auth: {
     isAuthenticated: async () => !!localStorage.getItem('mockUser'),
     me: async () => JSON.parse(localStorage.getItem('mockUser') || 'null'),
-    redirectToLogin: () => {
-      localStorage.setItem('mockUser', JSON.stringify({
-        id: "u1",
-        email: "catherine.sonolet@sustainable-luxury.info",
-        full_name: "Catherine Sonolet",
-        role: "Training Consultant"
-      }));
-      window.location.reload();
+    login: async (email, password) => {
+      await delay(500);
+      const user = mockUsers.find(u => u.email === email && u.password === password);
+      if (user) {
+        const { password: _, ...userWithoutPassword } = user;
+        localStorage.setItem('mockUser', JSON.stringify(userWithoutPassword));
+        return userWithoutPassword;
+      }
+      throw new Error("Invalid email or password");
     },
     logout: () => {
       localStorage.removeItem('mockUser');
-      window.location.href = '/';
+      window.location.href = '/login';
     }
   }
 };
