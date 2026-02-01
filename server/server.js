@@ -172,7 +172,22 @@ const seedData = async () => {
     }
 };
 
-sequelize.sync().then(() => {
-    seedData();
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-});
+console.log('Starting server initialization...');
+
+sequelize.sync()
+    .then(() => {
+        console.log('Database synced successfully.');
+        seedData()
+            .then(() => {
+                app.listen(PORT, '0.0.0.0', () => {
+                    console.log(`Server is live and listening on port ${PORT}`);
+                });
+            })
+            .catch(err => {
+                console.error('Error during data seeding:', err);
+            });
+    })
+    .catch(err => {
+        console.error('Failed to sync database:', err);
+        process.exit(1);
+    });
