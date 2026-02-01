@@ -16,6 +16,7 @@ export function createPageUrl(pageName) {
     'CourseDemo': '/course/demo',
     'Lesson': '/lesson/:id',
     'Module': '/module/:id',
+    'Login': '/login',
   };
   return pageRoutes[pageName] || '/';
 }
