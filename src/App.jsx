@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './layouts/Layout';
@@ -68,6 +67,4 @@ function App() {
 }
 
 export default App;
-=======
 
->>>>>>> 985b8ccea093af3b58a38ffbd96b7662541c1ecb
