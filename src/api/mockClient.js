@@ -1,97 +1,90 @@
-import { mockBlogPosts, mockCourses, mockResources, mockUserProgress, mockUsers } from '../data/mockData';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-// Helper to get/set from localStorage
-const getStorageItem = (key, fallback) => {
-  const item = localStorage.getItem(key);
-  return item ? JSON.parse(item) : fallback;
-};
-
-const setStorageItem = (key, value) => {
-  localStorage.setItem(key, JSON.stringify(value));
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('luxury_token');
+  return {
+    'Content-Type': 'application/json',
+    ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+  };
 };
 
 export const mockClient = {
   entities: {
     BlogPost: {
       filter: async (filters) => {
-        await delay(300);
-        return mockBlogPosts.filter(p => !filters.slug || p.slug === filters.slug);
+        const response = await fetch(`${API_URL}/blog-posts?slug=${filters.slug || ''}`);
+        return response.json();
       },
       list: async () => {
-        await delay(300);
-        return mockBlogPosts;
+        const response = await fetch(`${API_URL}/blog-posts`);
+        return response.json();
       },
       get: async (id) => {
-        await delay(300);
-        return mockBlogPosts.find(p => p.id === id);
+        const response = await fetch(`${API_URL}/blog-posts/${id}`);
+        return response.json();
       }
     },
     Course: {
       filter: async () => {
-        await delay(300);
-        return mockCourses;
+        const response = await fetch(`${API_URL}/courses`);
+        return response.json();
       },
       get: async (id) => {
-        await delay(300);
-        return mockCourses.find(c => c.id === id);
+        const response = await fetch(`${API_URL}/courses/${id}`);
+        return response.json();
       }
     },
     Resource: {
       list: async () => {
-        await delay(300);
-        return mockResources;
+        const response = await fetch(`${API_URL}/resources`);
+        return response.json();
       }
     },
     UserProgress: {
       filter: async () => {
-        await delay(300);
-        const user = JSON.parse(localStorage.getItem('mockUser') || 'null');
-        if (!user) return [];
-        return getStorageItem(`userProgress_${user.id}`, mockUserProgress);
+        const response = await fetch(`${API_URL}/progress`, {
+          headers: getAuthHeaders()
+        });
+        return response.json();
       },
       update: async (courseId, lessonId) => {
-        await delay(300);
-        const user = JSON.parse(localStorage.getItem('mockUser') || 'null');
-        if (!user) throw new Error("Unauthorized");
-
-        const storageKey = `userProgress_${user.id}`;
-        const progress = getStorageItem(storageKey, mockUserProgress);
-        const courseIndex = progress.findIndex(p => p.courseId === courseId);
-
-        if (courseIndex > -1) {
-          if (!progress[courseIndex].completedLessons.includes(lessonId)) {
-            progress[courseIndex].completedLessons.push(lessonId);
-            progress[courseIndex].lastAccessed = new Date().toISOString();
-          }
-        } else {
-          progress.push({
-            courseId,
-            completedLessons: [lessonId],
-            lastAccessed: new Date().toISOString()
-          });
-        }
-
-        setStorageItem(storageKey, progress);
-        return progress;
+        const response = await fetch(`${API_URL}/progress`, {
+          method: 'POST',
+          headers: getAuthHeaders(),
+          body: JSON.stringify({ courseId, lessonId })
+        });
+        return response.json();
       }
     }
   },
   auth: {
-    isAuthenticated: async () => !!localStorage.getItem('mockUser'),
-    me: async () => JSON.parse(localStorage.getItem('mockUser') || 'null'),
-    login: async (email, password) => {
-      await delay(500);
-      const user = mockUsers.find(u => u.email === email && u.password === password);
-      if (user) {
-        const { password: _, ...userWithoutPassword } = user;
-        localStorage.setItem('mockUser', JSON.stringify(userWithoutPassword));
-        return userWithoutPassword;
+    isAuthenticated: async () => !!localStorage.getItem('luxury_token'),
+    me: async () => {
+      const response = await fetch(`${API_URL}/auth/me`, {
+        headers: getAuthHeaders()
+      });
+      if (!response.ok) {
+        localStorage.removeItem('luxury_token');
+        return null;
       }
-      throw new Error("Invalid email or password");
+      return response.json();
+    },
+    login: async (email, password) => {
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Login failed');
+
+      localStorage.setItem('luxury_token', data.token);
+      localStorage.setItem('mockUser', JSON.stringify(data.user));
+      return data.user;
     },
     logout: () => {
+      localStorage.removeItem('luxury_token');
       localStorage.removeItem('mockUser');
       window.location.href = '/login';
     }

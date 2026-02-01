@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./server
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - JWT_SECRET=luxury-secret-key-2024
+    volumes:
+      - ./server/database.sqlite:/app/database.sqlite
+    restart: always
