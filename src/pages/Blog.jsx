@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowRight, Clock, Search, Calendar, User } from "lucide-react";
 import { format } from "date-fns";
+import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const categories = [
@@ -31,15 +33,16 @@ export default function Blog() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
 
-  const { data: posts = [], isLoading } = useQuery({
+  const { data: rawPosts, isLoading } = useQuery({
     queryKey: ['blogPosts'],
-    queryFn: () => base44.entities.BlogPost.filter({ is_published: true }, '-published_at'),
-    initialData: []
+    queryFn: () => base44.entities.BlogPost.list(),
   });
+
+  const posts = Array.isArray(rawPosts) ? rawPosts : [];
 
   const filteredPosts = posts.filter(post => {
     const matchesSearch = post.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         post.excerpt?.toLowerCase().includes(searchQuery.toLowerCase());
+      post.excerpt?.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = activeCategory === "all" || post.category === activeCategory;
     return matchesSearch && matchesCategory;
   });
@@ -67,7 +70,7 @@ export default function Blog() {
               The Sustainable Luxury Blog
             </h1>
             <p className="text-xl text-white/80 leading-relaxed">
-              Explore the latest insights on sustainability in the luxury industry, 
+              Explore the latest insights on sustainability in the luxury industry,
               training methodologies, and the future of responsible luxury.
             </p>
           </motion.div>
@@ -122,7 +125,7 @@ export default function Blog() {
           ) : filteredPosts.length === 0 ? (
             <div className="text-center py-16">
               <p className="text-[#5C3D2E]/60 text-lg">
-                {posts.length === 0 
+                {posts.length === 0
                   ? "No blog posts yet. Check back soon for insights on sustainable luxury."
                   : "No posts match your search criteria."}
               </p>

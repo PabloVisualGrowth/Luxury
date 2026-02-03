@@ -54,11 +54,12 @@ export default function Resources() {
     checkAuth();
   }, []);
 
-  const { data: resources = [], isLoading } = useQuery({
+  const { data: rawResources, isLoading } = useQuery({
     queryKey: ['resources'],
     queryFn: () => base44.entities.Resource.list(),
-    initialData: []
   });
+
+  const resources = Array.isArray(rawResources) ? rawResources : [];
 
   const filteredResources = resources.filter(resource => {
     const matchesSearch = resource.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||

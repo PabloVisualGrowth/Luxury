@@ -39,4 +39,19 @@ const Progress = sequelize.define('Progress', {
     lastAccessed: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
 });
 
-module.exports = { sequelize, User, Course, Resource, Progress };
+const BlogPost = sequelize.define('BlogPost', {
+    id: { type: DataTypes.STRING, primaryKey: true },
+    title: { type: DataTypes.STRING, allowNull: false },
+    slug: { type: DataTypes.STRING, unique: true },
+    excerpt: { type: DataTypes.TEXT },
+    content: { type: DataTypes.TEXT },
+    featured_image: { type: DataTypes.STRING },
+    author: { type: DataTypes.STRING },
+    category: { type: DataTypes.STRING },
+    tags: { type: DataTypes.JSON },
+    is_published: { type: DataTypes.BOOLEAN, defaultValue: true },
+    published_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+    read_time: { type: DataTypes.INTEGER }
+});
+
+module.exports = { sequelize, User, Course, Resource, Progress, BlogPost };

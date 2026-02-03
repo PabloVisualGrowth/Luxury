@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { sequelize, User, Course, Resource, Progress } = require('./models');
+const { sequelize, User, Course, Resource, Progress, BlogPost } = require('./models');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -82,6 +82,32 @@ app.get('/api/resources', async (req, res) => {
     try {
         const resources = await Resource.findAll();
         res.json(resources);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// --- Blog Routes ---
+
+app.get('/api/blog-posts', async (req, res) => {
+    try {
+        const { slug } = req.query;
+        if (slug) {
+            const post = await BlogPost.findOne({ where: { slug, is_published: true } });
+            return res.json(post ? [post] : []);
+        }
+        const posts = await BlogPost.findAll({ where: { is_published: true } });
+        res.json(posts);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.get('/api/blog-posts/:id', async (req, res) => {
+    try {
+        const post = await BlogPost.findByPk(req.params.id);
+        if (!post) return res.status(404).json({ error: 'Post not found' });
+        res.json(post);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -166,6 +192,23 @@ const seedData = async () => {
         await Resource.bulkCreate([
             { id: 'brand-guide', title: 'Sustainable Branding Guide 2024', type: 'PDF', description: 'A comprehensive guide on how to integrate sustainability into your brand narrative.', fileUrl: '/assets/pdf/branding-guide.pdf', category: 'Guides' },
             { id: 'material-audit', title: 'Material Audit Checklist', type: 'Worksheet', description: 'Use this checklist to audit your supply chain materials.', fileUrl: '/assets/pdf/audit-checklist.pdf', category: 'Tools' }
+        ]);
+
+        await BlogPost.bulkCreate([
+            {
+                id: "1",
+                title: "The Future of Sustainable Luxury",
+                slug: "future-sustainable-luxury",
+                excerpt: "Exploring how sustainability is reshaping the luxury industry.",
+                content: "# The Future of Sustainable Luxury\n\nSustainability is no longer an optional add-on for luxury brands; it is the core of future value creation. In this article, we explore the shift from rarity to responsibility.\n\n### Key Pillars\n1. Ethical Craftsmanship\n2. Circular Business Models\n3. Transparent Supply Chains\n\nLuxury of tomorrow will be defined by its impact on the world.",
+                featured_image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+                author: "Catherine Sonolet",
+                category: "sustainability",
+                tags: ["luxury", "future"],
+                is_published: true,
+                published_at: new Date(),
+                read_time: 8
+            }
         ]);
 
         console.log('Database seeded successfully.');
