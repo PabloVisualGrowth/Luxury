@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { 
-  ArrowLeft, 
-  ArrowRight, 
-  CheckCircle2, 
+import {
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle2,
   Circle,
   BookOpen,
   Clock,
@@ -209,8 +209,9 @@ export default function CourseDemo() {
   const [completedLessons, setCompletedLessons] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  const lesson = demoModule.lessons[currentLesson];
-  const progress = (completedLessons.length / demoModule.lessons.length) * 100;
+  const lessons = demoModule?.lessons || [];
+  const lesson = lessons[currentLesson] || lessons[0];
+  const progress = lessons.length > 0 ? (completedLessons.length / lessons.length) * 100 : 0;
 
   const handleNext = () => {
     if (!completedLessons.includes(currentLesson)) {
@@ -359,7 +360,7 @@ export default function CourseDemo() {
                   Congratulations!
                 </h2>
                 <p className="text-[#5C3D2E]/70 text-lg mb-8 max-w-xl mx-auto">
-                  You've completed the demo module. Ready to unlock the full training experience 
+                  You've completed the demo module. Ready to unlock the full training experience
                   and transform your team's approach to sustainable luxury?
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -405,8 +406,8 @@ export default function CourseDemo() {
 
                   {/* Content */}
                   <article className="prose prose-lg max-w-none prose-headings:text-[#5C3D2E] prose-p:text-[#5C3D2E]/80 prose-a:text-[#C4714A] prose-strong:text-[#5C3D2E] prose-blockquote:border-l-4 prose-blockquote:border-[#C4714A] prose-blockquote:bg-[#F5EBE6] prose-blockquote:p-4 prose-blockquote:rounded-r-xl prose-blockquote:not-italic prose-li:text-[#5C3D2E]/80 prose-table:border prose-th:bg-[#F5EBE6] prose-th:p-3 prose-td:p-3 prose-td:border">
-                    <div dangerouslySetInnerHTML={{ 
-                      __html: lesson.content
+                    <div dangerouslySetInnerHTML={{
+                      __html: (lesson?.content || '')
                         .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold mt-8 mb-4">$1</h2>')
                         .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold mt-6 mb-3">$1</h3>')
                         .replace(/^#### (.*$)/gim, '<h4 class="text-lg font-medium mt-4 mb-2">$1</h4>')

@@ -14,6 +14,7 @@ export function createPageUrl(pageName) {
     'UserProgress': '/progress',
     'Course': '/course/:id',
     'CourseDemo': '/course/demo',
+    'Demo': '/demo',
     'Lesson': '/lesson/:id',
     'Module': '/module/:id',
     'Login': '/login',

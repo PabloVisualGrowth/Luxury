@@ -79,6 +79,7 @@ function App() {
                 <Route path="/progress" element={<ProtectedRoute><Layout currentPageName="UserProgress"><UserProgress /></Layout></ProtectedRoute>} />
                 <Route path="/course/:id" element={<ProtectedRoute><Layout currentPageName="Course"><Course /></Layout></ProtectedRoute>} />
                 <Route path="/course/demo" element={<ProtectedRoute><Layout currentPageName="CourseDemo"><CourseDemo /></Layout></ProtectedRoute>} />
+                <Route path="/demo" element={<Navigate to="/course/demo" replace />} />
                 <Route path="/lesson/:id" element={<ProtectedRoute><Layout currentPageName="Lesson"><Lesson /></Layout></ProtectedRoute>} />
                 <Route path="/module/:id" element={<ProtectedRoute><Layout currentPageName="Module"><Module /></Layout></ProtectedRoute>} />
 
